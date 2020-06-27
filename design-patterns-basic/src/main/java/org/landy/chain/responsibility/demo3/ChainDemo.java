@@ -10,18 +10,12 @@ public class ChainDemo {
 
     public static void main(String[] args) {
         DefaultExecutorChain chain = new DefaultExecutorChain();
-        chain.addExecutor(new Executor() {
-            @Override
-            public void run(ExecutorChain c) {
-                System.out.println("Hello World");
-                c.run();
-            }
-        }).addExecutor(new Executor() {
-            @Override
-            public void run(ExecutorChain chain) {
-                System.out.println("Hello Landy");
-                chain.run();
-            }
+        chain.addExecutor(c -> {
+            System.out.println("Hello World");
+            c.run();
+        }).addExecutor(chain1 -> {
+            System.out.println("Hello Landy");
+            chain1.run();
         });
 
         chain.run();

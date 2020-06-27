@@ -12,17 +12,28 @@ import java.util.List;
  */
 public class FilterChain implements Filter {
     private List<Filter> filters = new ArrayList<Filter>();
-    int index = 0;    //标记执行到第几个filter
+    /**
+     * 标记执行到第几个filter
+     */
+    int index = 0;
 
-    //把函数的返回值设为FilterChain，返回this,就能方便链式编写代码
+    /**
+     * 把函数的返回值设为FilterChain，返回this,就能方便链式编写代码
+     * @param filter
+     * @return
+     */
     public FilterChain addFilter(Filter filter) {
         filters.add(filter);
         //代码的设计技巧:Chain链添加过滤规则结束后返回添加后的Chain，方便我们下面doFilter函数的操作
         return this;
     }
 
+    @Override
     public void doFilter(Request request, Response response, FilterChain fc) {
-        if(index == filters.size()) return ;
+        if(index == filters.size()){
+            return ;
+        }
+
         Filter f = filters.get(index);
         index++;
         f.doFilter(request, response, fc);

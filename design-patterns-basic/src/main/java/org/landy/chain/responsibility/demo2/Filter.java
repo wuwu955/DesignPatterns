@@ -8,7 +8,13 @@ import org.landy.chain.responsibility.demo2.domain.Response;
  * @create 2:15 PM 05/12/2018
  */
 public interface Filter {
+    /**
+     * 执行过滤器
+     * @param request
+     * @param response
+     * @param filterChain
+     */
 
-    public void doFilter(Request request, Response response, FilterChain filterChain);
+    void doFilter(Request request, Response response, FilterChain filterChain);
 
 }
